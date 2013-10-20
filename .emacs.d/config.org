@@ -12,6 +12,9 @@
    #+END_SRC
 ** Global modes
   #+BEGIN_SRC emacs-lisp
+    (require 'uniquify)
+    (setq uniquify-buffer-name-style (quote post-forward-angle-brackets))
+
     (require 'helm-config)
     (helm-mode 1)
   #+END_SRC
