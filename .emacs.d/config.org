@@ -3,12 +3,33 @@
 ** Repositories
    #+BEGIN_SRC emacs-lisp
      (require 'package)
-     (add-to-list 'package-archives 
-                  '("marmalade" .
-                    "http://marmalade-repo.org/packages/"))
+     ;; (add-to-list 'package-archives 
+     ;;              '("marmalade" .
+     ;;                "http://marmalade-repo.org/packages/"))
      (add-to-list 'package-archives
                   '("melpa" .
                     "http://melpa.milkbox.net/packages/") t)
+   #+END_SRC
+** Required packages
+   #+BEGIN_SRC emacs-lisp
+     (defvar required-packages
+       '(helm solarized-theme exec-path-from-shell rainbow-delimiters smartparens clojure-mode cider magit))
+   #+END_SRC
+   #+BEGIN_SRC emacs-lisp
+     (defun packages-installed-p (packages)
+       (loop for p in packages
+             when (not (package-installed-p p)) do (return nil)
+             finally (return t)))
+     
+     (unless (packages-installed-p required-packages)
+       ;; check for new packages (package versions)
+       (message "%s" "Refreshing package database ...")
+       (package-refresh-contents)
+       (message "%s" " done.")
+       ;; install the missing packages
+       (dolist (p required-packages)
+         (when (not (package-installed-p p))
+           (package-install p))))
    #+END_SRC
 ** Global modes
   #+BEGIN_SRC emacs-lisp
@@ -32,7 +53,7 @@
   #+END_SRC
 
   #+BEGIN_SRC emacs-lisp
-    (load-theme 'zenburn t)
+    (load-theme 'solarized-light t)
   #+END_SRC
 * Keybindings
   #+BEGIN_SRC emacs-lisp
@@ -43,8 +64,10 @@
     
     (global-set-key "\C-xg" 'magit-status)
     (global-set-key "\C-cg" 'magit-status)
+    
+    (global-set-key (kbd "s-f") 'toggle-frame-fullscreen)
   #+END_SRC
-
+  
 * Misc
   #+BEGIN_SRC emacs-lisp
     (defalias 'yes-or-no-p 'y-or-n-p)
@@ -54,9 +77,19 @@
 
 ** Lisp
    #+BEGIN_SRC emacs-lisp
+     (defun load-smartparens ()
+       (require 'smartparens-config)
+       (smartparens-strict-mode t)
+       (local-set-key (kbd "C-(")
+                      'sp-forward-barf-sexp)
+       (local-set-key (kbd "C-)")
+                      'sp-forward-slurp-sexp))
+   #+END_SRC
+   
+   #+BEGIN_SRC emacs-lisp
      (defun lisp-hook ()
        (rainbow-delimiters-mode)
-       (smartparens-mode t))
+       (load-smartparens))
    #+END_SRC
 
 *** Clojure
@@ -72,8 +105,9 @@
       (add-hook 'emacs-lisp-mode-hook
                 'lisp-hook)
     #+END_SRC
-
+    
 * Paths
   #+BEGIN_SRC emacs-lisp
-    (exec-path-from-shell-initialize)
+    (when (memq window-system '(mac ns))
+      (exec-path-from-shell-initialize))
   #+END_SRC
