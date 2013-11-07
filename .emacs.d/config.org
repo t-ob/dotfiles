@@ -111,3 +111,11 @@
     (when (memq window-system '(mac ns))
       (exec-path-from-shell-initialize))
   #+END_SRC
+
+* Org
+
+** Headings
+   #+BEGIN_SRC emacs-lisp
+     (set-face-attribute 'fixed-pitch nil :font "Essential PragmataPro-16")
+     (set-face-attribute 'variable-pitch nil :font "Essential PragmataPro-16")
+   #+END_SRC
