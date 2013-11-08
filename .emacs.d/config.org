@@ -119,3 +119,11 @@
      (set-face-attribute 'fixed-pitch nil :font "Essential PragmataPro-16")
      (set-face-attribute 'variable-pitch nil :font "Essential PragmataPro-16")
    #+END_SRC
+
+* Magit
+
+** Settings
+   #+BEGIN_SRC emacs-lisp
+     (set-variable 'magit-emacsclient-executable
+                   "/usr/local/Cellar/emacs/HEAD/bin/emacsclient")
+   #+END_SRC
