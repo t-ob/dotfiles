@@ -1,0 +1,3 @@
+[submodule ".emacs.d/src/org-mode"]
+	path = .emacs.d/src/org-mode
+	url = git://orgmode.org/org-mode.git
