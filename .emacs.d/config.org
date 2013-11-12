@@ -13,7 +13,7 @@
 ** Required packages
    #+BEGIN_SRC emacs-lisp
      (defvar required-packages
-       '(helm solarized-theme exec-path-from-shell rainbow-delimiters smartparens clojure-mode cider magit))
+       '(helm solarized-theme exec-path-from-shell rainbow-delimiters smartparens clojure-mode clojure-cheatsheet cider magit auctex))
    #+END_SRC
    #+BEGIN_SRC emacs-lisp
      (defun packages-installed-p (packages)
@@ -72,6 +72,9 @@
   #+BEGIN_SRC emacs-lisp
     (defalias 'yes-or-no-p 'y-or-n-p)
   #+END_SRC
+  #+BEGIN_SRC emacs-lisp
+    (setq fill-column 80)
+  #+END_SRC
 
 * Languages
 
@@ -80,22 +83,35 @@
      (defun load-smartparens ()
        (require 'smartparens-config)
        (smartparens-strict-mode t)
-       (local-set-key (kbd "C-(")
-                      'sp-forward-barf-sexp)
-       (local-set-key (kbd "C-)")
-                      'sp-forward-slurp-sexp))
+       (sp-use-paredit-bindings)
+       ;; (local-set-key (kbd "C-(")
+       ;;                'sp-forward-barf-sexp)
+       ;; (local-set-key (kbd "C-)")
+       ;;                'sp-forward-slurp-sexp)
+       ;; (local-set-key (kbd "M-r")
+       ;;                'sp-raise-sexp)
+       )
    #+END_SRC
    
    #+BEGIN_SRC emacs-lisp
      (defun lisp-hook ()
        (rainbow-delimiters-mode)
-       (load-smartparens))
+       (load-smartparens)
+       (show-paren-mode 1))
    #+END_SRC
 
 *** Clojure
     #+BEGIN_SRC emacs-lisp
+      (defun clojure-hook ()
+        (local-set-key (kbd "C-c c")
+                       'clojure-cheatsheet))
+    #+END_SRC
+    #+BEGIN_SRC emacs-lisp
       (add-hook 'clojure-mode-hook
                 'lisp-hook)
+      
+      (add-hook 'clojure-mode-hook
+                'clojure-hook)
     #+END_SRC
 
     
