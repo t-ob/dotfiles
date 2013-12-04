@@ -13,7 +13,7 @@
 ** Required packages
    #+BEGIN_SRC emacs-lisp
      (defvar required-packages
-       '(helm solarized-theme exec-path-from-shell rainbow-delimiters smartparens clojure-mode clojure-cheatsheet cider magit auctex))
+       '(helm solarized-theme exec-path-from-shell rainbow-delimiters smartparens clojure-mode clojure-cheatsheet cider magit auctex scala-mode2 sbt-mode geiser))
    #+END_SRC
    #+BEGIN_SRC emacs-lisp
      (defun packages-installed-p (packages)
@@ -30,6 +30,14 @@
        (dolist (p required-packages)
          (when (not (package-installed-p p))
            (package-install p))))
+   #+END_SRC
+** Local packages
+   Stored as Git Submodules
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'load-path
+                  (concat (getenv "HOME") "/.emacs.d/src/org-reveal"))
+     
+     (require 'ox-reveal)
    #+END_SRC
 ** Global modes
   #+BEGIN_SRC emacs-lisp
@@ -136,6 +144,10 @@
      (set-face-attribute 'variable-pitch nil :font "Essential PragmataPro-16")
    #+END_SRC
 
+** Babel
+   #+BEGIN_SRC emacs-lisp
+     (setq org-src-fontify-natively t)
+   #+END_SRC
 * Magit
 
 ** Settings
