@@ -13,7 +13,7 @@
 ** Required packages
    #+BEGIN_SRC emacs-lisp
      (defvar required-packages
-       '(helm solarized-theme exec-path-from-shell rainbow-delimiters smartparens clojure-mode clojure-cheatsheet cider magit auctex scala-mode2 sbt-mode geiser))
+       '(helm solarized-theme exec-path-from-shell rainbow-delimiters smartparens clojure-mode clojure-cheatsheet cider magit auctex scala-mode2 sbt-mode))
    #+END_SRC
    #+BEGIN_SRC emacs-lisp
      (defun packages-installed-p (packages)
@@ -57,7 +57,7 @@
   #+END_SRC
   
   #+BEGIN_SRC emacs-lisp
-    (set-frame-font "Essential PragmataPro-16")
+    (set-frame-font "Essential PragmataPro-24")
   #+END_SRC
 
   #+BEGIN_SRC emacs-lisp
@@ -129,7 +129,16 @@
       (add-hook 'emacs-lisp-mode-hook
                 'lisp-hook)
     #+END_SRC
-    
+
+*** scheme
+    #+BEGIN_SRC emacs-lisp
+      (add-hook 'scheme-mode-hook
+                'lisp-hook)
+    #+END_SRC
+
+** Python
+   
+   
 * Paths
   #+BEGIN_SRC emacs-lisp
     (when (memq window-system '(mac ns))
@@ -147,6 +156,30 @@
 ** Babel
    #+BEGIN_SRC emacs-lisp
      (setq org-src-fontify-natively t)
+   #+END_SRC
+
+** Blog
+   #+BEGIN_SRC emacs-lisp
+     (setq org-publish-project-alist
+           `(("blog-content"
+              :base-directory "~/Projects/personal/blog/org"
+              :base-extension "org"
+              :publishing-directory "~/Projects/personal/blog/site"
+              :publishing-function org-html-publish-to-html
+              :section-numbers nil
+              :with-toc nil
+              :recursive t
+              :html-head "<link rel='stylesheet' type='text/css' href='css/base.css' />\n<link rel='stylesheet' type='text/css' href='css/skeleton.css' />\n<link rel='stylesheet' type='text/css' href='css/layout.css' />"
+              :html-container "container"
+              :html-postamble "<p>If you liked this post, you should follow me on Twitter</p>")
+             ("blog-static"
+              :base-directory "~/Projects/personal/blog/org"
+              :base-extension "css\\|js\\|png\\|jpg\\|gif"
+              :publishing-directory "~/Projects/personal/blog/site"
+              :publishing-function org-publish-attachment
+              :recursive t)
+             ("blog"
+              :components ("blog-content" "blog-static"))))
    #+END_SRC
 * Magit
 
