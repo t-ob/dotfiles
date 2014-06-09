@@ -59,7 +59,7 @@
   #+END_SRC
   
   #+BEGIN_SRC emacs-lisp
-    (set-frame-font "Essential PragmataPro-24")
+    (set-frame-font "Essential PragmataPro-18")
   #+END_SRC
 
   #+BEGIN_SRC emacs-lisp
@@ -151,8 +151,8 @@
 
 ** Headings
    #+BEGIN_SRC emacs-lisp
-     (set-face-attribute 'fixed-pitch nil :font "Essential PragmataPro-16")
-     (set-face-attribute 'variable-pitch nil :font "Essential PragmataPro-16")
+     (set-face-attribute 'fixed-pitch nil :font "Essential PragmataPro-14")
+     (set-face-attribute 'variable-pitch nil :font "Essential PragmataPro-14")
    #+END_SRC
 
 ** Babel
