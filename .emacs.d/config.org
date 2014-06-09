@@ -9,6 +9,8 @@
      (add-to-list 'package-archives
                   '("melpa" .
                     "http://melpa.milkbox.net/packages/") t)
+
+     (package-initialize)
    #+END_SRC
 ** Required packages
    #+BEGIN_SRC emacs-lisp
